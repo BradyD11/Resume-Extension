@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Resume Optimizer</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 10px;
+      }
+      #upload {
+        margin-bottom: 10px;
+      }
+      #analyze {
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Resume Optimizer</h1>
+    <input type="file" id="resume" accept=".pdf,.doc,.docx" />
+    <textarea id="jobDescription" placeholder="Paste job description here"></textarea>
+    <button id="analyze">Analyze Resume</button>
+    <div id="results"></div>
+    <script src="popup.js"></script>
+  </body>
+</html>
