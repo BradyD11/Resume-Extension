@@ -1,26 +1,19 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Resume Optimizer</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 10px;
-      }
-      #upload {
-        margin-bottom: 10px;
-      }
-      #analyze {
-        margin-top: 10px;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Resume Optimizer</h1>
-    <input type="file" id="resume" accept=".pdf,.doc,.docx" />
-    <textarea id="jobDescription" placeholder="Paste job description here"></textarea>
-    <button id="analyze">Analyze Resume</button>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Resume Analyzer</title>
+</head>
+<body>
+    <h1>Resume Analyzer</h1>
+    <form id="resume-form">
+        <input type="file" id="resume-upload" accept=".pdf" required>
+        <textarea id="job-description" placeholder="Enter job description..." required></textarea>
+        <button type="submit">Analyze</button>
+    </form>
     <div id="results"></div>
     <script src="popup.js"></script>
-  </body>
+</body>
 </html>

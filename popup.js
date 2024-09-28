@@ -1,29 +1,41 @@
-document.getElementById('analyze').addEventListener('click', () => {
-    const resume = document.getElementById('resume').files[0];
-    const jobDescription = document.getElementById('jobDescription').value;
+document.getElementById('resume-form').addEventListener('submit', async (event) => {
+    event.preventDefault();
 
-    if (resume && jobDescription) {
-        // Pass data to background script or backend for processing
-        processResume(resume, jobDescription);
-    } else {
-        alert("Please upload a resume and enter a job description.");
+    const resumeFile = document.getElementById('resume-upload').files[0];
+    const jobDescription = document.getElementById('job-description').value;
+
+    if (resumeFile && jobDescription) {
+        const reader = new FileReader();
+        reader.onload = async function() {
+            const resumeText = reader.result;
+            const suggestions = await analyzeResume(resumeText, jobDescription);
+            displayResults(suggestions);
+        };
+        reader.readAsText(resumeFile);
     }
 });
 
-async function processResume(resume, jobDescription) {
-    // Implement resume parsing and analysis logic
-    // Send the resume and job description to an AI API or backend
-    const response = await fetch('YOUR_BACKEND_URL', {
+async function analyzeResume(resumeText, jobDescription) {
+    // Call your backend API to analyze the resume
+    const response = await fetch('http://<your-api-url>/analyze/', {
         method: 'POST',
-        body: JSON.stringify({
-            resume: resume,
-            jobDescription: jobDescription
-        }),
         headers: {
-            'Content-Type': 'application/json'
-        }
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            resume: resumeText,
+            jobDescription: jobDescription,
+        }),
     });
 
-    const result = await response.json();
-    document.getElementById('results').innerText = `Suggestions: ${result.suggestions}`;
+    const data = await response.json();
+    return data.suggestions;
+}
+
+function displayResults(suggestions) {
+    const resultsDiv = document.getElementById('results');
+    resultsDiv.innerHTML = '<h2>Suggestions:</h2>';
+    suggestions.forEach(suggestion => {
+        resultsDiv.innerHTML += `<p>${suggestion}</p>`;
+    });
 }
