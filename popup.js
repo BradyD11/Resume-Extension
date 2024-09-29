@@ -38,3 +38,4 @@ function displayResults(suggestions) {
         resultsDiv.innerHTML += `<p>${suggestion}</p>`;
     });
 }
+
