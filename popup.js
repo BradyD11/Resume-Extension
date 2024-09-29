@@ -1,17 +1,17 @@
-document.getElementById('resume-form').addEventListener('submit', async (event) => {
-    event.preventDefault();
-
-    const resumeFile = document.getElementById('resume-upload').files[0];
-    const jobDescription = document.getElementById('job-description').value;
-
-    if (resumeFile && jobDescription) {
+document.getElementById('resume').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        // Read the file here or perform your logic
         const reader = new FileReader();
-        reader.onload = async function() {
-            const resumeText = reader.result;
-            const suggestions = await analyzeResume(resumeText, jobDescription);
-            displayResults(suggestions);
+        
+        reader.onload = function(e) {
+            const resumeText = e.target.result; // This is the text from the file
+            console.log(resumeText); // For debugging, see the contents of the resume
+            // You can now send this to your server or process it
         };
-        reader.readAsText(resumeFile);
+
+        // Assuming you're reading a text-based file like PDF or DOCX
+        reader.readAsText(file); // Use the appropriate method based on file type
     }
 });
 

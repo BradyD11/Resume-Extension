@@ -9,7 +9,8 @@
 <body>
     <h1>Resume Analyzer</h1>
     <form id="resume-form">
-        <input type="file" id="resume-upload" accept=".pdf" required>
+        <label for="resume" class="file-label">Choose File</label>
+        <input type="file" id="resume" accept=".pdf,.doc,.docx" class="file-input">        
         <textarea id="job-description" placeholder="Enter job description..." required></textarea>
         <button type="submit">Analyze</button>
     </form>
