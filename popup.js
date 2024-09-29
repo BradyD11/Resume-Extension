@@ -1,20 +1,19 @@
 document.getElementById('resume').addEventListener('change', function(event) {
     const file = event.target.files[0];
     if (file) {
-        // Read the file here or perform your logic
         const reader = new FileReader();
-        
+
         reader.onload = function(e) {
-            const resumeText = e.target.result; // This is the text from the file
-            console.log(resumeText); // For debugging, see the contents of the resume
-            // You can now send this to your server or process it
+            const fileContent = e.target.result; // This is the file content (PDF, DOC, etc.)
+            // Send the file content to the background script
+            chrome.runtime.sendMessage({ fileContent: fileContent, fileName: file.name }, function(response) {
+                console.log('File sent to background script:', response.status);
+            });
         };
 
-        // Assuming you're reading a text-based file like PDF or DOCX
-        reader.readAsText(file); // Use the appropriate method based on file type
+        reader.readAsArrayBuffer(file); // or readAsText depending on the file type
     }
 });
-
 async function analyzeResume(resumeText, jobDescription) {
     // Call your backend API to analyze the resume
     const response = await fetch('http://<your-api-url>/analyze/', {
