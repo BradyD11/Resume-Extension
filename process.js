@@ -3,7 +3,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     const fileName = request.fileName;
 
     // Display the file content or process it here
-    document.getElementById('output').innerHTML = `
+    const outputElement = document.getElementById('output');
+    outputElement.innerHTML = `
         <h2>File: ${fileName}</h2>
         <pre>${fileContent}</pre>
     `;
